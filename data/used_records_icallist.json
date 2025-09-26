@@ -1,0 +1,13 @@
+[
+  {
+    "type": "task",
+    "data": {
+      "id": "T2",
+      "list_id": "L",
+      "title": "Monthly task",
+      "series_id": "S2",
+      "rrule": "FREQ=MONTHLY;BYDAY=MO;BYSETPOS=1",
+      "time": "09:30"
+    }
+  }
+]

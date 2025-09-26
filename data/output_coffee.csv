@@ -1,0 +1,64 @@
+TYPE,CONTENT,DESCRIPTION,PRIORITY,INDENT,AUTHOR,RESPONSIBLE,DATE,DATE_LANG,TIMEZONE,DURATION,DURATION_UNIT,DEADLINE,DEADLINE_LANG
+task,Clean coffee grinder when next empty @coffee,,2,1,al.pendergrass,,every month starting 2025-12-12,en,,,,,
+task,Clean espresso machine @coffee,,2,1,al.pendergrass,,every 4 weeks starting 2025-10-05,en,,,,,
+note,"That is very good that you back flush daily. I would also suggest, every 4-6 weeks backflushing with a a detergent such as Cafiza or Biocaf in the blank. Here are those instructions how to backflush. https://support.clivecoffee.com/en/how-to-backflush-your-espresso-machine 
+
+As for how often to replace the screens, the Vivaldi screens can be removed and cleaned in general, based on age of yours, 3 years is a good time for a new set. Here are the instructions on grouphead maintenance for your machine https://support.clivecoffee.com/en/la-spaziale-lucca-a53-mini-grouphead-cleaning-and-maintenance note you don’t have to remove or replace the gasket, that is an annual recommendation, just cleaning the screens and dispersion plate is all thats needed. I would remove and soak the screens and dispersion plate in some hot water and Cafiza mix first. Clean the grouphead with a grouphead brush while soaking those parts. Then reinstall the plate and screens, the complete the detergent backflushing listed in the article above.",,,,,,,,,,,,
+task,Replace group gasket in espresso machine @coffee,,2,1,al.pendergrass,,every month starting 2026-06-30,en,,,,,
+note,"Done June 28, 2020",,,,,,,,,,,,
+note,"Done December 17, 2021. The gasket I took off was still fairly pliable, especially compared to the original but did have indentions from the portafilter. Used red silicone gasket this time that is supposed to last longer. May go two years or longer. Easy enough to pop it out and take a look at it.",,,,,,,,,,,,
+task,Aeropress recipe @info @coffee,,4,1,al.pendergrass,,,en,,,,,
+note,https://clivecoffee.com/products/able-disk-aeropress-coffee-filter?_pos=4&_sid=878411f2a&_ss=r,,,,,,,,,,,,
+note,"https://fellowproducts.com/blogs/brew-guides/prismo-full-immersion-brew-how-to
+2 level ap scoops, water to line 3, or more if desired.",,,,,,,,,,,,
+task,Mini Vivaldi II details @info @coffee,,4,1,al.pendergrass,,,en,,,,,
+note,"Order No: 31815
+Order Date: 10-Sep-2013 
+Serial number N.F. 260625",,,,,,,,,,,,
+task,Stovetop espresso maker (Moka Pot) how-to @info @coffee,,4,1,al.pendergrass,,,en,,,,,
+note,"The Ultimate Moka Pot Technique
+https://www.youtube.com/watch?v=BfDLoIvb0w4&list=PLxz0FjZMVOl1Zot3qiJ-wseRXyO-XoVNx&index=3",,,,,,,,,,,,
+note,"The Land Yacht instructions:
+To measure beans for grinding, barely fill portafilter as volume increases with grinding. It works out to be too level coffee scoops. Brew on  burner set to 2, not 2 and a little.",,,,,,,,,,,,
+note,"Screw grinder all the way in, then back off 7-8 clicks.",,,,,,,,,,,,
+note,"Instructions for use 
+Before the first use, wash the coffee machine thoroughly.  Unscrew the upper part (4) and the base of the coffee machine (1).  Remove the filter funnel (2) from the base, the filter plate (3) and the rubber disk.  Wash with lukewarm water without detergents or abrasives.  Dry all parts well and store separately.  Do not machine wash.  To reassemble, place the filter plate on top of the coffeemaker with the cavity visible.  Fitting the rubber disc into the groove.  Place the knot on the base and screw the sections at the top of the base tight.  
+To make coffee, pour cold water into the base up to the level of the safety valve (5) and insert the funnel.  Take it with ground coffee without compressing it. Use only coffee with ground coffee itself (medium-coarse).  Screw the top and bottom of the coffee machine on tightly.  Put it on a low heat and in no time the coffee will be ready.  Discard the first few cups of coffee on the first use.  
+
+Do not use the coffee pot to reheat the coffee, as the base is empty and the high temperature will be damaged.  With use, deposits or discoloration may form due to limestone in the water.  To remove stains you can use a mixture of water and vinegar",,,,,,,,,,,,
+task,"Check pressure, temp, flow rate on espresso machine @coffee",,3,1,al.pendergrass,,every year starting 2025-12-23,en,,,,,
+note,"Pressure check: 11 bars, 8-10 is expected. Bounces between 9 and 10 when pulling.",,,,,,,,,,,,
+note,Flow rate: 250 ml in 27 seconds,,,,,,,,,,,,
+note,"12/23/24
+Temp: 1.35 bars
+Pressure: 9.5 bars
+Flow rate: 250 ml in 25 seconds",,,,,,,,,,,,
+note,Temperature check: 1.25 bars,,,,,,,,,,,,
+note,"1. Temperature Check
+First, you’ll want to check the temperature of your machine. Did it heat up all the way? If your machine has a PID, it should read between 198 and 202 degrees Fahrenheit for your brew boiler and between 255 and 272 degrees Fahrenheit for your steam boiler. If you don’t have a PID or are using a single boiler or heat exchanger, the pressure gauge on your machine should sit between 1 ¼ - 1 ¾ bars. Make sure you’re using proper water and have set the machine to the correct water source. Once you’ve waited up to thirty minutes to heat, which is usually more than enough time, check the temperature. 
+
+2. Pressure Check
+Next, ensure that your machine can build adequate pressure. To test this, insert your blind, backflushing disk into your portafilter, lock it into your group head, and engage your pump by lifting the brew lever, pushing the button, or sliding the paddle — depending on your machine. Check the needle on your gauge and make sure it sits between 8 and 10 bars of pressure. While the machine is building pressure, you’ll also want to confirm the needle on the gauge is rising smooth and steady.
+
+3. Flow Rate Check
+Lastly, check the flow rate of the espresso machine. You’re looking for about 250ml of water in 25 seconds. Remove the portafilter from the group head, place a measuring cup underneath, and start the pump. Allow the cup to reach 250ml before stopping the machine.
+https://clivecoffee.com/blogs/learn/tech-espresso-troubleshooting",,,,,,,,,,,,
+task,Sample task with subtasks @coffee,,1,1,al.pendergrass,,2025-09-24,en,,,,,
+task,Sample subtask 1,,1,2,al.pendergrass,,2025-09-24,en,,,,,
+note,Sample subtask 1 note 2,,,,,,,,,,,,
+note,Sample subtask 1 note 1,,,,,,,,,,,,
+task,Sample subtask 1 subtask 1,,1,3,al.pendergrass,,2025-09-24,en,,,,,
+task,Sample subtask 1 subtask 2,,4,3,al.pendergrass,,2025-09-24,en,,,,,
+task,Sample subtask 2,,2,2,al.pendergrass,,2025-09-25,en,,,,,
+note,"Sample subtask 2 note 1 with embedded \'single\' and ""double"" quotes.",,,,,,,,,,,,
+task,Sample subtask 3,,3,2,al.pendergrass,,,en,,,,,
+task,Test task one due today repeat every month @coffee,,1,1,al.pendergrass,,every month starting 2025-09-24,en,,,,,
+note,Test task one note one,,,,,,,,,,,,
+task,Test task one subtask one due in a week no repeat,,2,2,al.pendergrass,,2025-10-01,en,,,,,
+note,Test task one subtask one note two,,,,,,,,,,,,
+note,Test task one subtask one note one,,,,,,,,,,,,
+task,Test task one due today repeat every month @coffee,,1,1,al.pendergrass,,every month starting 2025-10-24,en,,,,,
+note,Test task one note one,,,,,,,,,,,,
+task,Test task one subtask one due in a week no repeat,,2,2,al.pendergrass,,2025-10-31,en,,,,,
+note,Test task one subtask one note two,,,,,,,,,,,,
+note,Test task one subtask one note one,,,,,,,,,,,,

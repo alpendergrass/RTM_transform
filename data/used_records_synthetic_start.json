@@ -1,0 +1,21 @@
+[
+  {
+    "type": "task",
+    "data": {
+      "id": "synthetic-1",
+      "series_id": "synth-series-1",
+      "list_id": "L1",
+      "name": "Synthetic repeat task",
+      "priority": "P2",
+      "date_start": 1760006400000,
+      "date_start_has_time": true,
+      "repeat": "RRULE:FREQ=MONTHLY;BYDAY=MO;BYSETPOS=1",
+      "date_due": 1760006400000,
+      "date_due_has_time": true,
+      "tags": [
+        "synthetic",
+        "test"
+      ]
+    }
+  }
+]

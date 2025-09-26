@@ -1,0 +1,134 @@
+[
+  {
+    "type": "task",
+    "data": {
+      "id": "1012315221",
+      "series_id": "525890054",
+      "list_id": "51309873",
+      "name": "Beckham",
+      "priority": "P2",
+      "date_created": 1703032230521,
+      "date_added": 1703032230521,
+      "date_modified": 1758776754279,
+      "date_due_has_time": false,
+      "date_start_has_time": false,
+      "postponed": 0,
+      "source": "js",
+      "repeat_every": false,
+      "tags": [
+        "netflix"
+      ]
+    }
+  },
+  {
+    "type": "task",
+    "data": {
+      "id": "1106998438",
+      "series_id": "561415157",
+      "list_id": "51309873",
+      "name": "American Primeval",
+      "priority": "P1",
+      "date_created": 1735945539873,
+      "date_added": 1735945539873,
+      "date_modified": 1758776754279,
+      "date_due_has_time": false,
+      "date_start_has_time": false,
+      "postponed": 0,
+      "source": "js",
+      "repeat_every": false,
+      "tags": [
+        "netflix"
+      ]
+    }
+  },
+  {
+    "type": "note",
+    "data": {
+      "id": "109132536",
+      "series_id": "561415157",
+      "date_created": 1735945563955,
+      "date_modified": 1735945563955,
+      "title": "",
+      "content": "‘American Primeval’ strips the glory from the Old West\nThe director Peter Berg doesn’t consider his new Netflix series, “American Primeval,” set in the Utah Territory in 1857, to be a western. There are no saloons or cowboys, and the mood is anything but nostalgic.\n\nInstead, Berg’s goal — which can be seen in nearly every begrimed frame — is brutal authenticity, though the show is largely fiction. “You get a little bit closer to some of the origin stories of how our country was formed,” Berg said. “Those origin stories are very violent.”",
+      "creator_id": "984338",
+      "last_editor_id": "984338"
+    }
+  },
+  {
+    "type": "task",
+    "data": {
+      "id": "1092272278",
+      "series_id": "553573277",
+      "list_id": "51309873",
+      "name": "The Diplomat: waiting on next season",
+      "priority": "P2",
+      "date_created": 1729223713259,
+      "date_added": 1729223713259,
+      "date_modified": 1758776754279,
+      "date_due_has_time": false,
+      "date_start_has_time": false,
+      "postponed": 0,
+      "source": "iphone-native",
+      "repeat_every": false,
+      "tags": [
+        "netflix"
+      ]
+    }
+  },
+  {
+    "type": "task",
+    "data": {
+      "id": "981118621",
+      "series_id": "514346304",
+      "list_id": "51309873",
+      "name": "Netflix movies",
+      "priority": "P2",
+      "date_created": 1692832102051,
+      "date_added": 1692832102051,
+      "date_modified": 1758776754279,
+      "date_due_has_time": false,
+      "date_start_has_time": false,
+      "postponed": 0,
+      "source": "iphone-native",
+      "repeat_every": false,
+      "url": "https://www.nytimes.com/article/best-netflix-movies.html",
+      "tags": [
+        "netflix"
+      ]
+    }
+  },
+  {
+    "type": "task",
+    "data": {
+      "id": "1143945397",
+      "series_id": "580501943",
+      "list_id": "51309873",
+      "name": "Adolescence",
+      "priority": "P1",
+      "date_created": 1752624576133,
+      "date_added": 1752624576133,
+      "date_modified": 1758776754279,
+      "date_due_has_time": false,
+      "date_start_has_time": false,
+      "postponed": 0,
+      "source": "js",
+      "repeat_every": false,
+      "tags": [
+        "netflix"
+      ]
+    }
+  },
+  {
+    "type": "note",
+    "data": {
+      "id": "112483558",
+      "series_id": "580501943",
+      "date_created": 1752624576133,
+      "date_modified": 1752624576133,
+      "title": "",
+      "content": "Netflix’s out-of-nowhere hit, is the favorite for best limited series,",
+      "creator_id": "984338",
+      "last_editor_id": "984338"
+    }
+  }
+]
