@@ -1,0 +1,64 @@
+const fs = require('fs');
+const path = require('path');
+
+// Helper to determine type
+function getType(value) {
+  if (Array.isArray(value)) return 'array';
+  if (value === null) return 'null';
+  return typeof value;
+}
+
+// Recursively build schema
+function buildSchema(obj) {
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return { type: 'array', items: 'unknown' };
+    // Assume homogeneous arrays
+    return { type: 'array', items: buildSchema(obj[0]) };
+  } else if (obj !== null && typeof obj === 'object') {
+    const schema = {};
+    for (const key of Object.keys(obj)) {
+      schema[key] = buildSchema(obj[key]);
+    }
+    return { type: 'object', properties: schema };
+  } else {
+    return { type: getType(obj) };
+  }
+}
+
+// Main
+function main() {
+  const argv = process.argv.slice(2);
+  if (argv.includes('-h') || argv.includes('--help')) {
+    console.log('Usage: node extract_schema.js [input.json] [output.json]');
+    console.log('Defaults: input=./data/rememberthemilk_export_2025-09-21T16_50_41.384Z.json output=./data/schema.json');
+    process.exit(0);
+  }
+
+  let inputFile = argv[0] || './data/rememberthemilk_export_2025-09-21T16_50_41.384Z.json';
+  const outputFile = argv[1] || './data/schema.json';
+
+  // If the specified input file doesn't exist, try to pick the newest export in ./data
+  if (!fs.existsSync(inputFile)) {
+    try {
+      const dataDir = path.resolve(__dirname, 'data');
+      const files = fs.readdirSync(dataDir)
+        .filter(f => f.startsWith('rememberthemilk_export'))
+        .map(f => ({ name: f, mtime: fs.statSync(path.join(dataDir, f)).mtime.getTime() }));
+      if (files.length > 0) {
+        files.sort((a, b) => b.mtime - a.mtime);
+        inputFile = path.join('data', files[0].name);
+        console.log(`No input provided — using newest export ${inputFile}`);
+      }
+    } catch (e) {
+      // fall through and let the readFileSync throw an error
+    }
+  }
+
+  const data = JSON.parse(fs.readFileSync(inputFile, 'utf8'));
+  const schema = buildSchema(data);
+
+  fs.writeFileSync(outputFile, JSON.stringify(schema, null, 2));
+  console.log(`Schema written to ${outputFile}`);
+}
+
+main();

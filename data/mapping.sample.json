@@ -1,0 +1,20 @@
+{
+  "TYPE": "type",
+  "CONTENT": "name",
+  "DESCRIPTION": "description",
+  "PRIORITY": "priority",
+  "INDENT": "indent",
+  "AUTHOR": "config.username",
+  "RESPONSIBLE": "assignee",
+  "DATE": "date_due",
+  "DATE_HAS_TIME": "date_due_has_time",
+  "DATE_LANG": "config.date_format_month_first",
+  "TIMEZONE": "config.timezone_id",
+  "DURATION": "duration",
+  "DURATION_UNIT": "duration_unit",
+  "DEADLINE": "date_due",
+  "DEADLINE_LANG": "config.language",
+  "TAGS": "tags",
+  "LIST_ID": "list_id",
+  "NOTES_COUNT": "notes.length"
+}

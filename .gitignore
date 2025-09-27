@@ -1,0 +1,6 @@
+
+# Ignore generated outputs
+/data/output*.csv
+/data/used_records*.json
+/data/rememberthemilk_export_*.json
+.DS_Store
