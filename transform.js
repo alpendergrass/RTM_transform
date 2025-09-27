@@ -121,6 +121,43 @@ rows = rows.filter(r => {
   return dc === undefined || dc === null;
 });
 
+// Exclude trashed tasks and any of their descendant child tasks.
+// Some exports include a `date_trashed` timestamp on trashed tasks. When present,
+// ignore that task and any children that reference it (directly or indirectly).
+try {
+  const trashedIds = new Set();
+  for (const r of rows) {
+    if (!r) continue;
+    const dt = getNested(r, 'date_trashed');
+    if (dt !== undefined && dt !== null && String(dt).length) {
+      if (r.id) trashedIds.add(r.id);
+    }
+  }
+
+  if (trashedIds.size > 0) {
+    // Recursively find descendants whose parent_id chains lead to a trashed id
+    let added = true;
+    while (added) {
+      added = false;
+      for (const r of rows) {
+        if (!r || !r.id) continue;
+        if (trashedIds.has(r.id)) continue;
+        const pid = r.parent_id;
+        if (pid && trashedIds.has(pid)) {
+          trashedIds.add(r.id);
+          added = true;
+        }
+      }
+    }
+
+    if (trashedIds.size > 0) {
+      rows = rows.filter(r => !(r && r.id && trashedIds.has(r.id)));
+    }
+  }
+} catch (e) {
+  // Non-fatal; if anything goes wrong, continue without trashed filtering
+}
+
 // Build a map of lists by id (useful for naming outputs and filters)
 const listsById = {};
 if (jsonData && Array.isArray(jsonData.lists)) {
@@ -458,6 +495,35 @@ for (const t of rows) {
   if (t && t.id) {
     tasksById[t.id] = t;
   }
+}
+// Remove orphaned child tasks whose parent was removed by earlier filters
+// (rowsFilter, completed-filter, or trashed-filter). We do this iteratively
+// so chains of orphans are removed until no remaining child references a
+// non-existent parent.
+try {
+  let removedAny = true;
+  while (removedAny) {
+    removedAny = false;
+    const idSet = new Set(Object.keys(tasksById).map(k => String(k)));
+    const orphanIds = new Set();
+    for (const r of rows) {
+      if (!r || !r.id) continue;
+      if (r.parent_id && !idSet.has(String(r.parent_id))) {
+        orphanIds.add(r.id);
+      }
+    }
+    if (orphanIds.size > 0) {
+      removedAny = true;
+      rows = rows.filter(r => !(r && r.id && orphanIds.has(r.id)));
+      // rebuild tasksById to reflect removals
+      for (const k of Object.keys(tasksById)) delete tasksById[k];
+      for (const t of rows) {
+        if (t && t.id) tasksById[t.id] = t;
+      }
+    }
+  }
+} catch (e) {
+  // non-fatal — if something goes wrong, continue with original rows/tasksById
 }
 // Populate children map for rows that reference a parent present in the filtered rows
 for (const t of rows) {

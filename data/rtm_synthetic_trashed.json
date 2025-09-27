@@ -1,0 +1,39 @@
+{
+  "lists": [{ "id": "L1", "name": "Coffee" }],
+  "tasks": [
+    {
+      "id": "trashed-parent",
+      "series_id": "series-trashed",
+      "list_id": "L1",
+      "name": "Trashed parent task",
+      "date_created": 1760000000000,
+      "date_trashed": 1760001000000,
+      "tags": ["coffee"]
+    },
+    {
+      "id": "child-of-trashed",
+      "series_id": "series-child",
+      "list_id": "L1",
+      "parent_id": "trashed-parent",
+      "name": "Child of trashed parent",
+      "date_created": 1760002000000,
+      "tags": []
+    },
+    {
+      "id": "orphaned-child",
+      "series_id": "series-orphan",
+      "list_id": "L1",
+      "parent_id": "nonexistent-parent",
+      "name": "Orphaned child (should be removed)",
+      "date_created": 1760003000000
+    },
+    {
+      "id": "keep-task",
+      "series_id": "series-keep",
+      "list_id": "L1",
+      "name": "Keep this task",
+      "date_created": 1760004000000
+    }
+  ],
+  "notes": []
+}

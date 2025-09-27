@@ -441,41 +441,7 @@
     },
     "locations": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "date_created": {
-            "type": "number"
-          },
-          "date_modified": {
-            "type": "number"
-          },
-          "name": {
-            "type": "string"
-          },
-          "latitude": {
-            "type": "number"
-          },
-          "longitude": {
-            "type": "number"
-          },
-          "address": {
-            "type": "string"
-          },
-          "zoom": {
-            "type": "number"
-          },
-          "sorting_scheme_id": {
-            "type": "string"
-          },
-          "owner_id": {
-            "type": "string"
-          }
-        }
-      }
+      "items": "unknown"
     },
     "contacts": {
       "type": "array",
