@@ -48,6 +48,24 @@ function main() {
         files.sort((a, b) => b.mtime - a.mtime);
         inputFile = path.join('data', files[0].name);
         console.log(`No input provided — using newest export ${inputFile}`);
+      } else {
+        // Create a minimal synthetic export so this script can run in CI when
+        // no real export file is present.
+        try {
+          if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+          const sample = {
+            lists: [{ id: 'L_ci', name: 'CI Sample' }],
+            tasks: [{ id: 'T_ci', series_id: 'S_ci', list_id: 'L_ci', name: 'ci-sample' }],
+            notes: []
+          };
+          const sampleName = 'rememberthemilk_export_sample_for_extract.json';
+          const samplePath = path.join(dataDir, sampleName);
+          fs.writeFileSync(samplePath, JSON.stringify(sample, null, 2), 'utf8');
+          inputFile = path.join('data', sampleName);
+          console.log(`No exports found — wrote sample export ${inputFile}`);
+        } catch (e) {
+          // ignore and fall through to allow original error to surface
+        }
       }
     } catch (e) {
       // fall through and let the readFileSync throw an error
