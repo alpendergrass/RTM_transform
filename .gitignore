@@ -4,3 +4,5 @@
 /data/used_records*.json
 /data/rememberthemilk_export_*.json
 .DS_Store
+node_modules/
+package-lock.json
