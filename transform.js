@@ -732,13 +732,13 @@ function emitTask(task, depth = 1) {
           let createdStr = '';
           if (created !== undefined && created !== null && String(created).length) {
             createdStr = formatDateForCsv(created);
-            if (createdStr) prefixLines.push(`date added ${createdStr}`);
+            if (createdStr) prefixLines.push(`rtm date added ${createdStr}`);
           }
           const modified = getNested(note, 'date_modified') || getNested(note, 'modified') || getNested(note, 'updated_on') || getNested(note, 'updated');
           if (modified !== undefined && modified !== null && String(modified).length) {
             const md = formatDateForCsv(modified);
             // Only include modified when it differs from created (compare YYYY-MM-DD strings)
-            if (md && md !== createdStr) prefixLines.push(`date last modified ${md}`);
+            if (md && md !== createdStr) prefixLines.push(`rtm date last modified ${md}`);
           }
         } catch (e) {
           // non-fatal; fall back to original content if any getter fails

@@ -18,12 +18,12 @@ function buildCombinedContent(note) {
   let createdStr = '';
   if (created !== undefined && created !== null && String(created).length) {
     createdStr = formatDateForCsv(created);
-    if (createdStr) prefixLines.push(`date added ${createdStr}`);
+    if (createdStr) prefixLines.push(`rtm date added ${createdStr}`);
   }
   const modified = note.date_modified || note.modified || note.updated_on || note.updated;
   if (modified !== undefined && modified !== null && String(modified).length) {
     const md = formatDateForCsv(modified);
-    if (md && md !== createdStr) prefixLines.push(`date last modified ${md}`);
+    if (md && md !== createdStr) prefixLines.push(`rtm date last modified ${md}`);
   }
 
   // Content first, then date lines after (if any)
@@ -49,14 +49,14 @@ function buildCombinedContent(note) {
   const outSame = buildCombinedContent(noteSame);
   // Should contain content first, then date added; no date last modified
   assert(outSame.startsWith('Note same dates'), 'noteSame should start with the note content');
-  assert(outSame.includes('\n\ndate added 2025-09-25'), 'noteSame should include date added after content');
+  assert(outSame.includes('\n\nrtm date added 2025-09-25'), 'noteSame should include date added after content');
   assert(!outSame.includes('date last modified'), 'noteSame should NOT include date last modified when same day');
 
   const outDiff = buildCombinedContent(noteDiff);
   // Should contain content first, then both date lines
   assert(outDiff.startsWith('Note modified later'), 'noteDiff should start with the note content');
-  assert(outDiff.includes('\n\ndate added 2025-09-25'), 'noteDiff should include date added after content');
-  assert(outDiff.includes('date last modified 2025-09-26'), 'noteDiff should include date last modified 2025-09-26');
+  assert(outDiff.includes('\n\nrtm date added 2025-09-25'), 'noteDiff should include date added after content');
+  assert(outDiff.includes('rtm date last modified 2025-09-26'), 'noteDiff should include date last modified 2025-09-26');
 
   console.log('TEST PASS: note date prefix suppression behavior is correct');
 })();
