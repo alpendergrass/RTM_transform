@@ -71,6 +71,23 @@ Behavior notes & assumptions
 - Trashed and completed tasks are excluded from output; children of trashed tasks are also removed.
 - Arrays in schema inference are treated as homogeneous (only the first item is inspected). This is a deliberate simplification; scan more elements if you need strict typing.
 
+Tagging behavior
+----------------
+- All task CONTENT values emitted by `transform.js` now append the tag `@from_rtm` after any existing tags. This makes it easy to identify items that originated from an RTM export after importing into Todoist. Example:
+
+  "Do the thing @alpha @beta @from_rtm"
+
+New tests
+---------
+- Two zero-dependency test scripts were added to validate this behavior:
+  - `scripts/test_task_from_rtm_tag.js` — verifies tasks with existing tags receive `@from_rtm` after those tags.
+  - `scripts/test_task_from_rtm_tag_no_tags.js` — verifies tasks without tags still receive `@from_rtm`.
+
+These are run automatically by `npm test` (they are included in the `test:from-rtm` script). You can also run them directly:
+
+  node ./scripts/test_task_from_rtm_tag.js
+  node ./scripts/test_task_from_rtm_tag_no_tags.js
+
 Troubleshooting
 ---------------
 - If `npm test` fails in CI with "Cannot find module scripts/..." then the checked-out commit likely didn't include test scripts. Ensure your branch contains the `scripts/` files and push them.
