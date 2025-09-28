@@ -729,14 +729,16 @@ function emitTask(task, depth = 1) {
         const prefixLines = [];
         try {
           const created = getNested(note, 'date_created') || getNested(note, 'created') || getNested(note, 'created_on');
+          let createdStr = '';
           if (created !== undefined && created !== null && String(created).length) {
-            const cd = formatDateForCsv(created);
-            if (cd) prefixLines.push(`date added ${cd}`);
+            createdStr = formatDateForCsv(created);
+            if (createdStr) prefixLines.push(`date added ${createdStr}`);
           }
           const modified = getNested(note, 'date_modified') || getNested(note, 'modified') || getNested(note, 'updated_on') || getNested(note, 'updated');
           if (modified !== undefined && modified !== null && String(modified).length) {
             const md = formatDateForCsv(modified);
-            if (md) prefixLines.push(`date last modified ${md}`);
+            // Only include modified when it differs from created (compare YYYY-MM-DD strings)
+            if (md && md !== createdStr) prefixLines.push(`date last modified ${md}`);
           }
         } catch (e) {
           // non-fatal; fall back to original content if any getter fails
