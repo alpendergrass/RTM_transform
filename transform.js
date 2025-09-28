@@ -554,15 +554,32 @@ function emitTask(task, depth = 1) {
     // Special-case: for task rows, append RTM tags to the CONTENT field
     if (h === 'CONTENT') {
       let contentVal = resolveValue(h, task);
+      // Build existing labels from task.tags when present. Keep this isolated so
+      // any error collecting tags doesn't prevent adding the required @from_rtm tag.
+      let labels = [];
       try {
         if (task && Array.isArray(task.tags) && task.tags.length > 0) {
-          const labels = task.tags.map(tag => `@${tag}`);
-          const sep = contentVal ? ' ' : '';
-          contentVal = String(contentVal || '') + sep + labels.join(' ');
+          for (const tag of task.tags) {
+            if (tag === undefined || tag === null) continue;
+            labels.push(`@${String(tag)}`);
+          }
         }
       } catch (e) {
-        // ignore tagging errors and fall back to original content
+        // ignore tag-collection errors; we'll still append @from_rtm below
+        labels = labels || [];
       }
+      // Always append the @from_rtm tag after any existing tags
+      try {
+        labels.push('@from_rtm');
+      } catch (e) {
+        // extremely defensive: if push fails, ensure final string still contains the literal tag
+        if (!labels) labels = [];
+        // fall back to concatenation later
+      }
+      const sep = contentVal ? ' ' : '';
+      // If labels is not an array for any reason, coerce to a single-item array
+      if (!Array.isArray(labels)) labels = [String(labels || '@from_rtm')];
+      contentVal = String(contentVal || '') + (labels.length ? sep + labels.join(' ') : '');
       return formatCell(contentVal);
     }
     let val = resolveValue(h, task);
