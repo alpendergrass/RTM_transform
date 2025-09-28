@@ -6,3 +6,9 @@
 .DS_Store
 node_modules/
 package-lock.json
+
+# Coverage artifacts
+.nyc_output/
+
+# Temporary used_records created by tests
+data/tmp_used_records_*.json
