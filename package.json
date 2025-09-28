@@ -6,9 +6,10 @@
   "scripts": {
   "extract": "node extract_schema.js",
   "transform": "node transform.js",
-  "test": "node ./scripts/ensure_sample_export.js && npm run test:csv && npm run test:ical && node ./scripts/test.js",
+  "test": "node ./scripts/ensure_sample_export.js && npm run test:csv && npm run test:ical && npm run test:note-prefix && node ./scripts/test.js",
     "test:csv": "node ./scripts/test_csv_and_filenames.js",
     "test:ical": "node ./scripts/test_ical_to_todoist.js",
+    "test:note-prefix": "node ./scripts/test_note_date_prefix.js",
     "test:ordering": "node ./scripts/test_ordering.js",
     "test:no-orphans": "node ./scripts/test_no_orphans.js",
     "test:trashed": "node ./scripts/test_trashed_exclusion.js",
