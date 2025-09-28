@@ -2,6 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
 const child_process = require('child_process');
+let parse;
+try {
+  // Prefer the package export (may be ESM in some installs)
+  parse = require('csv-parse/sync').parse;
+} catch (e) {
+  // Fallback to the CommonJS build distributed with the package
+  parse = require(path.join(__dirname, '..', 'node_modules', 'csv-parse', 'dist', 'cjs', 'sync.cjs')).parse;
+}
 
 // This test writes a small RTM-like JSON with one task that has tags, runs transform.js
 // and asserts the generated CSV CONTENT includes the original @tags and ends with @from_rtm
@@ -43,42 +51,20 @@ try {
 const csv = fs.readFileSync(outputCsvPath, 'utf8');
 const lines = csv.split('\n').filter(Boolean);
 assert(lines.length >= 2, `Expected at least header + one row in CSV; got:\n${csv}`);
-const header = parseCsvLine(lines[0]);
+const headerRecs = parse(lines[0], { relax_quotes: true, relax_column_count: true });
+const header = headerRecs && headerRecs[0] ? headerRecs[0] : [];
 const typeIdx = header.indexOf('TYPE');
 const contentIdx = header.indexOf('CONTENT');
 assert(typeIdx !== -1 && contentIdx !== -1, `CSV must include TYPE and CONTENT headers; got headers=${header.join(',')}; CSV:\n${csv}`);
 
-// Helper: simple CSV line parser that respects quoted fields
-function parseCsvLine(line) {
-  const cols = [];
-  let cur = '';
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') {
-      if (inQuotes && i + 1 < line.length && line[i+1] === '"') {
-        cur += '"';
-        i++; // skip escaped quote
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (ch === ',' && !inQuotes) {
-      cols.push(cur);
-      cur = '';
-    } else {
-      cur += ch;
-    }
-  }
-  cols.push(cur);
-  return cols;
-}
 
 let found = false;
 for (let i = 1; i < lines.length; i++) {
-  const cols = parseCsvLine(lines[i]);
-  const type = cols[typeIdx].replace(/^"|"$/g, '');
+  const recs = parse(lines[i], { relax_quotes: true, relax_column_count: true });
+  const cols = recs && recs[0] ? recs[0] : [];
+  const type = (cols[typeIdx] || '').replace(/^"|"$/g, '');
   if (type === 'task') {
-    const content = cols[contentIdx].replace(/^"|"$/g, '').replace(/""/g, '"');
+  const content = (cols[contentIdx] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
     // Expect to see @alpha @beta followed by @from_rtm
     try {
       assert(content.includes('@alpha'), 'content should include @alpha');

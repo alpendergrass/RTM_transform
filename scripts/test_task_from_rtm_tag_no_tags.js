@@ -2,6 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const assert = require('assert');
 const child_process = require('child_process');
+let parse;
+try {
+  parse = require('csv-parse/sync').parse;
+} catch (e) {
+  parse = require(path.join(__dirname, '..', 'node_modules', 'csv-parse', 'dist', 'cjs', 'sync.cjs')).parse;
+}
 
 // Test that a task without tags still receives @from_rtm appended
 const tmpJsonPath = path.join(__dirname, '..', 'data', 'rtm_test_task_from_rtm_notags.json');
@@ -36,41 +42,20 @@ try {
 const csv = fs.readFileSync(outputCsvPath, 'utf8');
 const lines = csv.split('\n').filter(Boolean);
 assert(lines.length >= 2, `Expected at least header + one row in CSV; got:\n${csv}`);
-const header = parseCsvLine(lines[0]);
+const headerRecs = parse(lines[0], { relax_quotes: true, relax_column_count: true });
+const header = headerRecs && headerRecs[0] ? headerRecs[0] : [];
 const typeIdx = header.indexOf('TYPE');
 const contentIdx = header.indexOf('CONTENT');
 assert(typeIdx !== -1 && contentIdx !== -1, `CSV must include TYPE and CONTENT headers; got headers=${header.join(',')}; CSV:\n${csv}`);
 
-function parseCsvLine(line) {
-  const cols = [];
-  let cur = '';
-  let inQuotes = false;
-  for (let i = 0; i < line.length; i++) {
-    const ch = line[i];
-    if (ch === '"') {
-      if (inQuotes && i + 1 < line.length && line[i+1] === '"') {
-        cur += '"';
-        i++; // skip escaped quote
-      } else {
-        inQuotes = !inQuotes;
-      }
-    } else if (ch === ',' && !inQuotes) {
-      cols.push(cur);
-      cur = '';
-    } else {
-      cur += ch;
-    }
-  }
-  cols.push(cur);
-  return cols;
-}
 
 let found = false;
 for (let i = 1; i < lines.length; i++) {
-  const cols = parseCsvLine(lines[i]);
-  const type = cols[typeIdx].replace(/^"|"$/g, '');
+  const recs = parse(lines[i], { relax_quotes: true, relax_column_count: true });
+  const cols = recs && recs[0] ? recs[0] : [];
+  const type = (cols[typeIdx] || '').replace(/^"|"$/g, '');
   if (type === 'task') {
-    const content = cols[contentIdx].replace(/^"|"$/g, '').replace(/""/g, '"');
+    const content = (cols[contentIdx] || '').replace(/^"|"$/g, '').replace(/""/g, '"');
     try {
       assert(content.includes('@from_rtm'), 'content should include @from_rtm even when no tags present');
       found = true;
