@@ -21,5 +21,8 @@
   "license": "MIT",
   "dependencies": {
     "csv-parse": "^5.0.0"
+  },
+  "devDependencies": {
+    "tap": "^16.2.0"
   }
 }
