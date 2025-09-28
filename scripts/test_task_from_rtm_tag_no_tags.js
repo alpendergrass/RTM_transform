@@ -35,26 +35,54 @@ try {
 
 const csv = fs.readFileSync(outputCsvPath, 'utf8');
 const lines = csv.split('\n').filter(Boolean);
-assert(lines.length >= 2, 'Expected at least header + one row in CSV');
-const header = lines[0].split(',');
+assert(lines.length >= 2, `Expected at least header + one row in CSV; got:\n${csv}`);
+const header = parseCsvLine(lines[0]);
 const typeIdx = header.indexOf('TYPE');
 const contentIdx = header.indexOf('CONTENT');
-assert(typeIdx !== -1 && contentIdx !== -1, 'CSV must include TYPE and CONTENT headers');
+assert(typeIdx !== -1 && contentIdx !== -1, `CSV must include TYPE and CONTENT headers; got headers=${header.join(',')}; CSV:\n${csv}`);
+
+function parseCsvLine(line) {
+  const cols = [];
+  let cur = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && i + 1 < line.length && line[i+1] === '"') {
+        cur += '"';
+        i++; // skip escaped quote
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === ',' && !inQuotes) {
+      cols.push(cur);
+      cur = '';
+    } else {
+      cur += ch;
+    }
+  }
+  cols.push(cur);
+  return cols;
+}
 
 let found = false;
 for (let i = 1; i < lines.length; i++) {
-  const cols = lines[i].split(',');
+  const cols = parseCsvLine(lines[i]);
   const type = cols[typeIdx].replace(/^"|"$/g, '');
   if (type === 'task') {
-    const contentRaw = cols[contentIdx];
-    const content = contentRaw.replace(/^"|"$/g, '').replace(/""/g, '"');
-    assert(content.includes('@from_rtm'), 'content should include @from_rtm even when no tags present');
-    found = true;
-    break;
+    const content = cols[contentIdx].replace(/^"|"$/g, '').replace(/""/g, '"');
+    try {
+      assert(content.includes('@from_rtm'), 'content should include @from_rtm even when no tags present');
+      found = true;
+      break;
+    } catch (e) {
+      console.error('CSV contents:\n', csv);
+      throw e;
+    }
   }
 }
 
-assert(found, 'Expected to find a task row in CSV');
+assert(found, `Expected to find a task row in CSV; CSV:\n${csv}`);
 console.log('TEST PASS: @from_rtm present for tasks without tags');
 
 // Cleanup
