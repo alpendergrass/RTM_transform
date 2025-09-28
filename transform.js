@@ -722,12 +722,41 @@ function emitTask(task, depth = 1) {
     const noteLine = headers.map(h => {
       if (h === 'TYPE') return formatCell('note');
       if (h === 'CONTENT') {
-        const val = resolveValue(h, note);
-        return formatCell(val, { escapeNewlines: true });
+        // Base note content (note.content or note.title)
+        let contentVal = resolveValue(h, note) || '';
+
+        // Build prefix lines for date_created and date_modified when present
+        const prefixLines = [];
+        try {
+          const created = getNested(note, 'date_created') || getNested(note, 'created') || getNested(note, 'created_on');
+          if (created !== undefined && created !== null && String(created).length) {
+            const cd = formatDateForCsv(created);
+            if (cd) prefixLines.push(`date added ${cd}`);
+          }
+          const modified = getNested(note, 'date_modified') || getNested(note, 'modified') || getNested(note, 'updated_on') || getNested(note, 'updated');
+          if (modified !== undefined && modified !== null && String(modified).length) {
+            const md = formatDateForCsv(modified);
+            if (md) prefixLines.push(`date last modified ${md}`);
+          }
+        } catch (e) {
+          // non-fatal; fall back to original content if any getter fails
+        }
+
+        // Join prefixes with newline; separate from note body with a blank line when both present
+        let combined = '';
+        if (prefixLines.length) {
+          combined = prefixLines.join('\n');
+          if (contentVal) combined += '\n\n' + String(contentVal);
+        } else {
+          combined = String(contentVal);
+        }
+
+        return formatCell(combined, { escapeNewlines: true });
       }
       // For notes, all other fields should be empty
       return '';
     }).join(',');
+
     csvRowsOut.push(noteLine);
     usedRecords.push({ type: 'note', data: JSON.parse(JSON.stringify(note)) });
   }
