@@ -26,12 +26,13 @@ function buildCombinedContent(note) {
     if (md && md !== createdStr) prefixLines.push(`date last modified ${md}`);
   }
 
+  // Content first, then date lines after (if any)
   let combined = '';
-  if (prefixLines.length) {
-    combined = prefixLines.join('\n');
-    if (contentVal) combined += '\n\n' + String(contentVal);
-  } else {
+  if (contentVal) {
     combined = String(contentVal);
+    if (prefixLines.length) combined += '\n\n' + prefixLines.join('\n');
+  } else {
+    combined = prefixLines.join('\n');
   }
   return combined;
 }
@@ -46,13 +47,15 @@ function buildCombinedContent(note) {
   const noteDiff = { id: 'n2', series_id: 's1', content: 'Note modified later', date_created: createdMs, date_modified: modifiedNextMs };
 
   const outSame = buildCombinedContent(noteSame);
-  // Should contain only date added, not date last modified
-  assert(outSame.startsWith('date added 2025-09-25'), 'noteSame should start with date added 2025-09-25');
+  // Should contain content first, then date added; no date last modified
+  assert(outSame.startsWith('Note same dates'), 'noteSame should start with the note content');
+  assert(outSame.includes('\n\ndate added 2025-09-25'), 'noteSame should include date added after content');
   assert(!outSame.includes('date last modified'), 'noteSame should NOT include date last modified when same day');
 
   const outDiff = buildCombinedContent(noteDiff);
-  // Should contain both lines
-  assert(outDiff.startsWith('date added 2025-09-25'), 'noteDiff should start with date added 2025-09-25');
+  // Should contain content first, then both date lines
+  assert(outDiff.startsWith('Note modified later'), 'noteDiff should start with the note content');
+  assert(outDiff.includes('\n\ndate added 2025-09-25'), 'noteDiff should include date added after content');
   assert(outDiff.includes('date last modified 2025-09-26'), 'noteDiff should include date last modified 2025-09-26');
 
   console.log('TEST PASS: note date prefix suppression behavior is correct');

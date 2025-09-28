@@ -744,13 +744,13 @@ function emitTask(task, depth = 1) {
           // non-fatal; fall back to original content if any getter fails
         }
 
-        // Join prefixes with newline; separate from note body with a blank line when both present
+        // Place note content first, then date lines after it. If no content, just show the date lines.
         let combined = '';
-        if (prefixLines.length) {
-          combined = prefixLines.join('\n');
-          if (contentVal) combined += '\n\n' + String(contentVal);
-        } else {
+        if (contentVal) {
           combined = String(contentVal);
+          if (prefixLines.length) combined += '\n\n' + prefixLines.join('\n');
+        } else {
+          combined = prefixLines.join('\n');
         }
 
         return formatCell(combined, { escapeNewlines: true });
