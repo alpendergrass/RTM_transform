@@ -107,4 +107,4 @@ If you are the author and would like different attribution text or licensing not
 
 AI assistance
 -------------
-Parts of this repository were produced with the assistance of an AI coding assistant (GitHub Copilot), which helped generate code snippets, tests, and documentation. All generated content was reviewed and edited by the repository maintainer before being committed.
+This application was written by an AI coding assistant (GitHub Copilot). The repository owner provided guidance, reviewed the generated code, and made edits before committing.
