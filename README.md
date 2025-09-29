@@ -92,7 +92,8 @@ Troubleshooting
 
 Contributing
 ------------
-- Keep changes small and maintain the zero-dependency approach unless a dependency clearly simplifies a risky task (like robust CSV handling or iCal parsing). If you add a dependency, add a `package.json` and explain the reason in the PR.
+- Keep changes small and prefer minimizing new dependencies. The project currently declares dependencies (for example, `csv-parse`) and devDependencies (`tap`) in `package.json` to support tests and robust CSV parsing.
+- If you add a dependency, update `package.json` accordingly and explain the reason in the PR (include any security or maintenance considerations).
 
 License
 -------
