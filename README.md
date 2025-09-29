@@ -8,12 +8,13 @@ Purpose
 - Extract a lightweight JSON schema from an RTM export (helper script).
 - Transform RTM export objects (tasks, notes, lists) into a CSV matching Todoist's import template.
 
-Design & Constraints
+-Design & Constraints
 --------------------
-- Plain Node.js (CommonJS) single-file scripts — no external dependencies required.
+- Plain Node.js (CommonJS) single-file scripts. A minimal set of dependencies are used for testing and CSV robustness; runtime scripts remain dependency-light.
 - Synchronous file I/O for simplicity; intended for small-to-medium exports.
 - CSV mapping is header-driven: `data/Todoist_Template_CSV_2025.csv` defines the target columns.
-- The project includes small test harness scripts under `scripts/` (they are Node scripts, not a test framework).
+-- The project includes small test scripts under `scripts/` and a `package.json` defining test commands and development dependencies.
+  - Runtime scripts try to avoid dependencies; the test suite uses `tap` (devDependency) and `csv-parse` (dependency) for more robust CSV parsing in tests.
 
 Key files
 ---------
@@ -48,17 +49,13 @@ Usage
 
 Testing
 -------
-- The project includes small test scripts. Run them with npm scripts defined in `package.json`:
+- The project includes test scripts and a `package.json` with test commands. Install dev dependencies (or run via `npx`) and run the tests with:
 
   npm test
 
-- Or run individual test targets:
+- The test suite uses `tap` (devDependency). Some tests use `csv-parse` for robust CSV parsing; `csv-parse` is listed in `dependencies` in `package.json`.
 
-  npm run test:csv
-  npm run test:ical
-  npm run test:ordering
-  npm run test:no-orphans
-  npm run test:trashed
+If you prefer to run tests directly without installing devDependencies, the `npm test` script invokes `npx tap` which will fetch and run `tap` as needed.
 
 CI
 --
