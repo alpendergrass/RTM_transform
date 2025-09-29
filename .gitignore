@@ -12,3 +12,7 @@ package-lock.json
 
 # Temporary used_records created by tests
 data/tmp_used_records_*.json
+
+# ignore RTM export files and tmp used_records
+data/rememberthemilk_export_*.json
+data/tmp_used_records_*.json
