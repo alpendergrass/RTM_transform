@@ -100,3 +100,9 @@ Contributing
 License
 -------
 MIT
+
+Acknowledgements
+-----------------
+A couple of small code snippets from a public gist by Kylirh were used to guide code generation in a few places (for example, around CSV handling and small parsing helpers). The gist that helped inform those snippets is: https://gist.github.com/kylirh/957975e82ff34505d9df379727f08149
+
+If you are the author and would like different attribution text or licensing noted, tell me and I'll update this acknowledgement.
